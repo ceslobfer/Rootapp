@@ -1,3 +1,4 @@
+tablaGoDes <- read.csv("www/go_des_file.txt", sep = "\t",col.names = c("go","descripcion"), row.names = 1 ,stringsAsFactors = F)
 
 tablaSeqGoR <- read.csv("www/seq_gos_raiz.txt", sep = "\t",col.names = c("seqName","GoID"),stringsAsFactors = F)
 tablaSeqDesRoots <- read.csv("www/seq_description_raiz.txt", sep = "\t",col.names = c("seq","description"), row.names = 1,stringsAsFactors = F)

@@ -185,7 +185,7 @@ shinyServer(function(input, output) {
         if (length(rownames(table)) > 0) {
             DT::datatable(table,extensions = 'Buttons',options = list(initComplete = JS(
                 "function(settings, json) {",
-                "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#1c1b1b'});",
+                "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#ffffff'});",
                 "}"),dom = 'Bfrtip',pageLength = length(row.names(table)),buttons = c('copy', 'csv', 'excel', 'pdf', 'print')),
                 filter = "top",
                 selection = 'multiple',
@@ -226,7 +226,7 @@ shinyServer(function(input, output) {
             table <- newCorTableR()
             DT::datatable(table,extensions = 'Buttons',options = list(initComplete = JS(
                 "function(settings, json) {",
-                "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#1c1b1b'});",
+                "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#ffffff'});",
                 "}"),dom = 'Bfrtip',pageLength = length(row.names(table)),buttons = c('copy', 'csv', 'excel', 'pdf', 'print')),
                 filter = "top",
                 selection = 'multiple',
@@ -242,7 +242,7 @@ shinyServer(function(input, output) {
         table<-searchGoSeqR(input$goR)
         DT::datatable(table,extensions = 'Buttons',options = list(initComplete = JS(
             "function(settings, json) {",
-            "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#1c1b1b'});",
+            "$(this.api().table().header()).css({'background-color': '#1c1b1b', 'color': '#ffffff'});",
             "}"),dom = 'Bfrtip',pageLength = length(row.names(table)),buttons = c('copy', 'csv', 'excel', 'pdf', 'print')),
             filter = "top",
             selection = 'multiple',
@@ -298,6 +298,22 @@ shinyServer(function(input, output) {
         }
         
     })
+
+#Heatmap plot
+hide("heatmapPlot")
+output$heatmapPlot <- renderPlot({
+    if (unique(rownames(heatmapValuesR$table) %in% row.names(RM_data))) {
+        heatMapRoots(heatmapValuesR$table,input$clusterHeatR)
+    }
+})
+
+observeEvent(input$fileHeatmapRoots,{
+    if (unique(rownames(heatmapValuesR$table) %in% row.names(RM_data))) {
+        show("heatmapPlot")
+    }else{
+        hide("heatmapPlot")
+    }
+})
 
 
 #Legend plot Roots
